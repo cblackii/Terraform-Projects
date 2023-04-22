@@ -1,3 +1,17 @@
+variable "private-subnets" {
+  default = {
+    "private-subnet-1" = 1
+    "private-subnet-2" = 2
+  }
+}
+
+variable "public-subnets" {
+  default = {
+    "public-subnet-1" = 1
+    "public-subnet-2" = 2
+  }
+}
+
 variable "aws_region" {
   type    = string
   default = "us-west-2"
@@ -9,8 +23,9 @@ variable "vpc_name" {
 }
 
 variable "instance_type" {
-  type    = string
-  default = "t2.micro"
+  description = "Instance Type"
+  type        = string
+  default     = "t2.micro"
 }
 
 variable "image_id" {
@@ -26,20 +41,6 @@ variable "key_name" {
 variable "vpc_cidr" {
   type    = string
   default = "10.0.0.0/16"
-}
-
-variable "private-subnets" {
-  default = {
-    "private-subnet-1" = 1
-    "private-subnet-2" = 2
-  }
-}
-
-variable "public-subnets" {
-  default = {
-    "public-subnet-1" = 1
-    "public-subnet-2" = 2
-  }
 }
 
 variable "cidr" {
@@ -78,16 +79,14 @@ variable "ami" {
   default     = "ami-0747e613a2a1ff483"
 }
 
-variable "instance_type" {
-  description = "Instance Type"
-  type        = string
-  default     = "t2.micro"
+variable "tenancy" {
+  type    = string
+  default = "default"
 }
 
-variable "key_name" {
-  description = "EC2 Key Name"
-  type        = string
-  default     = "GeneralUseKeyPair"
+variable "true" {
+  type    = bool
+  default = true
 }
 
 variable "password" {}
