@@ -30,7 +30,7 @@ variable "instance_type" {
 
 variable "image_id" {
   type    = string
-  default = "ami-0747e613a2a1ff483" # region specific ami
+  default = "ami-02d5619017b3e5162" # region specific ami
 }
 
 variable "key_name" {
@@ -76,7 +76,7 @@ variable "egress" {
 variable "ami" {
   description = "AMI"
   type        = string
-  default     = "ami-0747e613a2a1ff483"
+  default     = "ami-02d5619017b3e5162"
 }
 
 variable "tenancy" {

@@ -15,5 +15,10 @@ output "private_subnet_id" {
 
 #DB instance address
 output "db-address" {
-  value = aws_db_instance.mysql.address
+  value = aws_db_instance.mydbinstance.address
+}
+
+output "db_instance_endpoint" {
+  description = "The DB instance endpoint"
+  value       = aws_db_instance.mydbinstance.endpoint
 }
