@@ -11,32 +11,24 @@ data "aws_subnets" "private" {
 }
 
 #Launch one RDS MySQL instance in a private subnet 
-resource "aws_db_instance" "mysql" {
+resource "aws_db_instance" "mydbinstance" {
   allocated_storage      = 20
-  max_allocated_storage  = 50
-  db_subnet_group_name   = aws_db_subnet_group.rds-mysql-subnet-group.id
-  db_name                = "cblackiitfrds"
   engine                 = "mysql"
-  engine_version         = "8.0.32"
-  instance_class         = "db.t3.micro"
-  port                   = "3306"
+  engine_version         = "5.7"
+  identifier             = "myrdsinstance"
+  instance_class         = "db.t2.micro"
   username               = var.username
   password               = var.password
-  vpc_security_group_ids = [aws_security_group.data-tier-security-group.id]
-  availability_zone      = "us-west-2b"
-  storage_encrypted      = true
-  deletion_protection    = false
+  parameter_group_name   = "default.mysql5.7"
+  vpc_security_group_ids = [aws_security_group.data-tier-security-group.id, aws_security_group.web-tier-security-group.id]
+  db_subnet_group_name   = aws_db_subnet_group.rds-mysql-subnet-group.id
   skip_final_snapshot    = true
-
-  tags = {
-    name = "cblackiitfrds"
-  }
+  publicly_accessible    = true
 }
-
 #Create database subnet group
 resource "aws_db_subnet_group" "rds-mysql-subnet-group" {
   name       = "tf-db-subnet-group"
-  subnet_ids = [for subnet in aws_subnet.private-subnets : subnet.id]
+  subnet_ids = [aws_subnet.private-subnets["private-subnet-1"].id, aws_subnet.private-subnets["private-subnet-2"].id]
 
   tags = {
     Name = "tf-db-subnet-group"
